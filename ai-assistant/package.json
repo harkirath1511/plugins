@@ -1,6 +1,6 @@
 {
   "name": "@headlamp-k8s/ai-assistant",
-  "version": "0.3.0-alpha",
+  "version": "0.4.1-alpha",
   "description": "Headlamp's AI Assistant",
   "type": "module",
   "scripts": {
@@ -76,6 +76,7 @@
     "typescript": "5.6.2",
     "ws": "^8.18.0",
     "@anthropic-ai/sdk": "~0.95.2",
+    "dompurify": "^3.4.13",
     "@ag-ui/core": {
       "zod": "$zod"
     },

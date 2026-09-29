@@ -33,6 +33,9 @@ import AIPanelComponent from './components/panel/AIPanelComponent';
 import Settings from './components/settings/Settings';
 import type { RawK8sEvent } from './kubernetes/EventFetcher';
 import { PLUGIN_NAME, useGlobalState, usePluginConfig } from './pluginState';
+import { seedBuiltinSkillSources } from './skills/seedBuiltinSources';
+
+seedBuiltinSkillSources();
 
 // Register UI Panel component that uses the shared state to show/hide
 registerUIPanel({
@@ -73,6 +76,9 @@ function AIDiagnosisButton({ event }: { event: Event }) {
     };
 
     if (!proactiveDiagnosisManager.hasDiagnosis(eventUid)) {
+      // The panel owns the diagnosis function and may still be unmounted.
+      // Enable the manager now so this request queues until the panel opens.
+      proactiveDiagnosisManager.start();
       proactiveDiagnosisManager.diagnoseSingleEvent(eventDigest).catch(err => {
         console.error('[AIDiagnosisButton] Failed to diagnose event:', err);
       });
